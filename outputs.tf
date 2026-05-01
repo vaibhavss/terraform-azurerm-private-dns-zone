@@ -22,3 +22,10 @@ output "number_of_record_sets" {
   description = "The number of record sets currently in the private DNS zone."
   value       = azurerm_private_dns_zone.this.number_of_record_sets
 }
+
+output "virtual_network_link_ids" {
+  description = "Private DNS zone virtual network link IDs keyed by link map key."
+  value = {
+    for key, link in azurerm_private_dns_zone_virtual_network_link.this : key => link.id
+  }
+}

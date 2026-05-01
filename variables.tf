@@ -28,6 +28,24 @@ variable "tags" {
   default     = {}
 }
 
+variable "virtual_network_links" {
+  description = "Optional virtual network links that share lifecycle with the private DNS zone."
+  type = map(object({
+    name                 = optional(string)
+    virtual_network_id   = string
+    registration_enabled = optional(bool)
+    resolution_policy    = optional(string)
+    tags                 = optional(map(string))
+    timeouts = optional(object({
+      create = optional(string)
+      read   = optional(string)
+      update = optional(string)
+      delete = optional(string)
+    }))
+  }))
+  default = {}
+}
+
 variable "timeouts" {
   description = "Optional custom timeouts for the private DNS zone."
   type = object({
